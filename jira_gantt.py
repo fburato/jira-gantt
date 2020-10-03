@@ -20,7 +20,7 @@ def parser():
     p.add_argument("--start-date", action="store", dest="start_date", required=True)
     p.add_argument("--user", action="store", dest="user", required=True)
     p.add_argument("--password", action="store", dest="password", required=True)
-    p.add_argument("--output", action="store", dest="output", required=False, default="gantt.html")
+    p.add_argument("--output", action="store", dest="output", required=False, default="gantt")
     p.add_argument("--dependency-types", action="store", nargs="+", dest="dependency_types", required=False, default=['Blocks'])
     p.add_argument("--jira-url", action="store", dest="jira_url", required=True)
     p.add_argument("--day-duration", action="store", dest="day_duration", required=False, default=8)
@@ -81,7 +81,7 @@ def make_gantt(timeline_tasks: List[TimelineTask], output: str):
     df = pd.DataFrame(df_dictionary)
     fig = px.timeline(df, x_start="Start", x_end="End", y="JiraID", hover_data=["Summary", "JiraID", "Link"])
     fig.update_yaxes(autorange="reversed")
-    fig.write_html(output)
+    fig.write_html(f"{output}.html")
 
 
 if __name__ == "__main__":
