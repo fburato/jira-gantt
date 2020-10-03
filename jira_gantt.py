@@ -15,16 +15,16 @@ def main():
 
 def parser():
     p = argparse.ArgumentParser()
-    p.add_argument("--exclude", action="store", nargs="+", dest="exclude", required=False, default=[])
-    p.add_argument("--holiday-weekday", action="store", nargs="+", dest="holiday_weekday", required=False, default=[5, 6])
-    p.add_argument("--start-date", action="store", dest="start_date", required=True)
-    p.add_argument("--user", action="store", dest="user", required=True)
-    p.add_argument("--password", action="store", dest="password", required=True)
-    p.add_argument("--output", action="store", dest="output", required=False, default="gantt")
-    p.add_argument("--dependency-types", action="store", nargs="+", dest="dependency_types", required=False, default=['Blocks'])
-    p.add_argument("--jira-url", action="store", dest="jira_url", required=True)
-    p.add_argument("--day-duration", action="store", dest="day_duration", required=False, default=8)
-    p.add_argument("jira_query")
+    p.add_argument("--exclude", action="store", nargs="+", dest="exclude", required=False, default=[], help="Dates in the YYYY-mm-dd format for non-working days")
+    p.add_argument("--holiday-weekday", action="store", nargs="+", dest="holiday_weekday", required=False, default=[5, 6], help="Non working days of the week (0 for Monday, 6 for Sunday)")
+    p.add_argument("--start-date", action="store", dest="start_date", required=True, help="Start date in the YYYY-mm-dd format from which to start computing the Gantt")
+    p.add_argument("--user", action="store", dest="user", required=True, help="User to use to authenticate to Jira")
+    p.add_argument("--password", action="store", dest="password", required=True, help="Password to use to authenticate to Jira")
+    p.add_argument("--output", action="store", dest="output", required=False, default="gantt", help="Filename (without extension) where the Gantt chart will be saved")
+    p.add_argument("--dependency-types", action="store", nargs="+", dest="dependency_types", required=False, default=['Blocks'], help="Forward dependency that indicates a blocking link")
+    p.add_argument("--jira-url", action="store", dest="jira_url", required=True, help="URL for the Jira server to connect to")
+    p.add_argument("--day-duration", action="store", dest="day_duration", required=False, default=8, help="Workday duration in hours")
+    p.add_argument("jira_query", help="JQL query that returns all Jira tickets to add to the Gantt calculation")
     return p.parse_args()
 
 
